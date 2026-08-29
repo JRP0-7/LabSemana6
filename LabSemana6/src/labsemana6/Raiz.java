@@ -17,27 +17,40 @@ public class Raiz {
     File carpetaActual = root();
     
     gui.imprimirTexto("\n> Find "+nombreBuscado + "\n");
-        buscarEnCarpeta(carpetaActual, nombreBuscado.toLowerCase(), gui);
+        boolean encontrado = buscarEnCarpeta(carpetaActual,
+                nombreBuscado.toLowerCase(), gui);
+
+        if (!encontrado) {
+            gui.imprimirTexto("No se encontro ningun archivo o carpeta con ese nombre.");
+        }
     }
     
-    private static void buscarEnCarpeta(File carpeta, String nombreBuscado, ConsoleGUI gui) {
+    private static boolean buscarEnCarpeta(File carpeta, String nombreBuscado,
+            ConsoleGUI gui) {
 
     File[] elementos = carpeta.listFiles();
 
     if (elementos == null) {
-        return;
+        return false;
     }
+
+    boolean encontrado = false;
 
     for (File elemento : elementos) {
         if (elemento.getName().toLowerCase().contains(nombreBuscado)) {
             String tipo = elemento.isDirectory() ? "[Carpeta] " : "[Archivo] ";
             gui.imprimirTexto(tipo + elemento.getAbsolutePath() + "\n");
+            encontrado = true;
         }
 
         if (elemento.isDirectory()) {
-            buscarEnCarpeta(elemento, nombreBuscado, gui);
+            if (buscarEnCarpeta(elemento, nombreBuscado, gui)) {
+                encontrado = true;
+            }
         }
     }
+
+    return encontrado;
 }
     
     public static void info(String nombre, ConsoleGUI gui){
