@@ -83,7 +83,7 @@ public class ManejoFile {
         }
 
         try {
-            if(destino.getCanonicalPath().equals(carpetaRaiz.getCanonicalPath())){
+            if (destino.getCanonicalPath().equals(carpetaRaiz.getCanonicalPath())) {
                 return "No se puede borrar la carpeta raiz";
             }
         } catch (IOException e) {
@@ -109,13 +109,13 @@ public class ManejoFile {
         return f.delete();
     }
 
-    public String Mover(String url){
+    public String Mover(String url) {
         File destino = URLValido(url);
-        if(destino == null || !destino.exists()){
+        if (destino == null || !destino.exists()) {
             return "No existe la carpeta " + url;
         }
 
-        if(!destino.isDirectory()){
+        if (!destino.isDirectory()) {
             return "No es una carpeta";
         }
 
@@ -123,94 +123,129 @@ public class ManejoFile {
         return "";
     }
 
-    public String Subir(){
-        try{
-            if(carpetaActual.getCanonicalPath().equals(carpetaRaiz.getCanonicalPath())){
+    public String Subir() {
+        try {
+            if (carpetaActual.getCanonicalPath().equals(carpetaRaiz.getCanonicalPath())) {
                 return "Ya se esta en la carpeta raiz";
             }
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             return "Error: " + e.getMessage();
         }
 
-        carpetaActual=carpetaActual.getParentFile();
+        carpetaActual = carpetaActual.getParentFile();
         return "";
     }
 
-    public String ubicacionActual(){
-        try{
+    public String ubicacionActual() {
+        try {
             String raiz = carpetaRaiz.getCanonicalPath();
             String actual = carpetaActual.getCanonicalPath();
-            if(actual.equals(raiz)){
-                return "C:\\Sistema>";
+            if (actual.equals(raiz)) {
+                return "C:\\Sistema";
             }
-            return "C:\\Sistema" + actual.substring(raiz.length()) + ">";
-        }
-        catch(IOException e){
+            return "C:\\Sistema" + actual.substring(raiz.length()) + "";
+        } catch (IOException e) {
             return "C:\\Sistema";
         }
     }
 
-    public String escribir(String origen, String contenido, boolean listo){
+    public String escribir(String origen, String contenido, boolean listo) {
         File destino = URLValido(origen);
-        if(destino == null){
+        if (destino == null) {
             return "Ruta invalida";
         }
-        try(FileWriter f = new FileWriter(destino, listo)){
+        try (FileWriter f = new FileWriter(destino, listo)) {
             f.write(contenido);
             return "";
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return "Error: " + e.getMessage();
         }
-    } 
+    }
 
-    public String leer(String origen){
+    public String leer(String origen) {
         File destino = URLValido(origen);
-        if(destino == null || !destino.isFile()){
+        if (destino == null || !destino.isFile()) {
             return "Error: No existe el archivo " + destino;
         }
 
-        StringBuilder Sb= new StringBuilder();
-        try(FileReader fr = new FileReader(destino)){
+        StringBuilder Sb = new StringBuilder();
+        try (FileReader fr = new FileReader(destino)) {
             int c;
-            while((c= fr.read()) != -1){
+            while ((c = fr.read()) != -1) {
                 Sb.append((char) c);
             }
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return "Error: " + e.getMessage();
         }
         return Sb.toString();
     }
 
-    public String copiar(String origen, String destino){
+    public String copiar(String origen, String destino) {
         File origin = URLValido(origen);
-        File end= URLValido(destino);
+        File end = URLValido(destino);
 
-        if(origin==null || !origin.isFile()){
+        if (origin == null || !origin.isFile()) {
             return "No existe el origen";
         }
-        if(end==null){
+        if (end == null) {
             return "Ruta invalida";
         }
 
-        if(end.exists()){
+        if (end.exists()) {
             return "El destino " + end + " ya existe";
         }
 
-        try(FileReader fr = new FileReader(origin);
-            FileWriter fw = new FileWriter(end)){
-                int c;
-                while ((c=fr.read()) != -1){
-                    fw.write(c);
-                }
-                return "Copiado exitosamente";
+        try (FileReader fr = new FileReader(origin);
+                FileWriter fw = new FileWriter(end)) {
+            int c;
+            while ((c = fr.read()) != -1) {
+                fw.write(c);
             }
-        catch (IOException e) {
+            return "Copiado exitosamente";
+        } catch (IOException e) {
             return "Error al copiar: " + e.getMessage();
         }
+    }
 
+    public String renombrar(String origen, String nNombre) {
+        File destino = URLValido(origen);
+        if (destino == null || !destino.exists()) {
+            return "No existe " + origen;
+        }
+
+        File Ndestino = URLValido(nNombre);
+        if (Ndestino == null) {
+            return "Nombre Invalido";
+        }
+        if (Ndestino.exists()) {
+            return "Ya existe " + nNombre;
+        }
+
+        if (destino.renameTo(Ndestino)) {
+            return origen + " se ha renombrado a " + nNombre;
+        } else {
+            return "Error al renombrar";
+        }
+    }
+
+    public String listar() {
+        File hijos[] = carpetaActual.listFiles();
+        if (hijos == null) {
+            return "No se pudo leer la carpeta";
+        }
+        if (hijos.length == 0) {
+            return "La carpeta esta vacia";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (File child : hijos) {
+            if (child.isDirectory()) {
+                sb.append("<DIR>    " + child.getName() + " \n");
+            } else {
+                sb.append(child.length() + " bytes  " + child.getName() + "\n");
+            }
+        }
+        return sb.toString();
     }
 
 }
