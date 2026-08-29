@@ -2,6 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package labsemana6;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
@@ -36,7 +40,7 @@ public class ConsoleGUI extends JFrame {
 
         
         Color colorFondo = Color.BLACK;
-        Color colorTexto = new Color(0, 255, 65); 
+        Color colorTexto = Color.WHITE; 
         Font fuenteConsola = new Font("Consolas", Font.PLAIN, 14);
 
         
@@ -88,7 +92,7 @@ public class ConsoleGUI extends JFrame {
                 String input = campoEntrada.getText();
                 campoEntrada.setText("");
 
-                // Mostrar en pantalla el comando tal como se ingresó
+              
                 imprimirTexto(getPromptText() + input);
 
                 if (input.trim().equalsIgnoreCase("cls")) {
@@ -140,7 +144,5 @@ public class ConsoleGUI extends JFrame {
         if (comando.trim().isEmpty()) return;
         imprimirTexto("-> [GUI Lista]: Esperando conexión con la lógica para el comando: \"" + comando + "\"");
     }
-
-
 
 }
