@@ -52,6 +52,36 @@ public class Raiz {
 
     return encontrado;
 }
+
+    public static void tree(File carpetaActual, ConsoleGUI gui) {
+        gui.imprimirTexto("\n> Tree");
+        gui.imprimirTexto(carpetaActual.getName());
+        mostrarArbol(carpetaActual, "", gui);
+    }
+
+    private static void mostrarArbol(File carpeta, String sangria,
+            ConsoleGUI gui) {
+        File[] elementos = carpeta.listFiles();
+
+        if (elementos == null) {
+            return;
+        }
+
+        for (int i = 0; i < elementos.length; i++) {
+            File elemento = elementos[i];
+            boolean esUltimo = i == elementos.length - 1;
+            String conector = esUltimo ? "`-- " : "|-- ";
+
+            gui.imprimirTexto(sangria + conector + elemento.getName());
+
+            if (elemento.isDirectory()) {
+                String nuevaSangria = esUltimo
+                        ? sangria + "    "
+                        : sangria + "|   ";
+                mostrarArbol(elemento, nuevaSangria, gui);
+            }
+        }
+    }
     
     public static void info(String nombre, ConsoleGUI gui){
     File carpetaActual = root();

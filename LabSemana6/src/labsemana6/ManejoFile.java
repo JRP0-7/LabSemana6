@@ -149,6 +149,10 @@ public class ManejoFile {
         }
     }
 
+    public File getCarpetaActual() {
+        return carpetaActual;
+    }
+
     public String escribir(String origen, String contenido, boolean listo) {
         File destino = URLValido(origen);
         if (destino == null) {
