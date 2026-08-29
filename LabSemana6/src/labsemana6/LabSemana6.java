@@ -4,6 +4,10 @@
  */
 package labsemana6;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.swing.SwingUtilities;
 
 /**
@@ -78,6 +82,12 @@ public class LabSemana6 {
                 break;
             case "dir":
                 gui.imprimirTexto(archivos.listar());
+                break;
+            case "date":
+                gui.imprimirTexto(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+                break;
+            case "time":
+                gui.imprimirTexto(new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 break;
             case "wr":
                 if (argumento.isEmpty()) {

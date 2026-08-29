@@ -165,7 +165,7 @@ public class ManejoFile {
     public String leer(String origen) {
         File destino = URLValido(origen);
         if (destino == null || !destino.isFile()) {
-            return "Error: No existe el archivo " + destino;
+            return "Error: No existe el archivo " + origen;
         }
 
         StringBuilder Sb = new StringBuilder();
@@ -192,7 +192,7 @@ public class ManejoFile {
         }
 
         if (end.exists()) {
-            return "El destino " + end + " ya existe";
+            return "El destino " + destino + " ya existe";
         }
 
         try (FileReader fr = new FileReader(origin);
