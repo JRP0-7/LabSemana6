@@ -4,6 +4,8 @@
  */
 package labsemana6;
 
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author josep
@@ -14,7 +16,10 @@ public class LabSemana6 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
+        SwingUtilities.invokeLater(() -> {
+            ConsoleGUI gui = new ConsoleGUI();
+            gui.setVisible(true);
+        });
     
+}
 }
