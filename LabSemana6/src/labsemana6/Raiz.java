@@ -1,13 +1,13 @@
 package labsemana6;
 
+import java.io.File;
+
 public class Raiz {
-    public static String root(){
-        String cd = System.getProperty("user.dir");
-        if(cd.endsWith("LabSemana6")){
-            return "Sistema";
-        }
-        else{
-            return "LabSemana6/Sistema";
-        }
+    public static File root(){
+        File raiz = new File(System.getProperty("user.dir"), "Sistema");
+        if(!raiz.exists())
+            raiz.mkdirs();
+
+        return raiz;
     }
 }
