@@ -64,7 +64,7 @@ public class LabSemana6 {
                 }
                 break;
             case "help":
-                gui.imprimirTexto("Comandos disponibles: Mkdir, Mfile, Rm, Find, Info, Cls, Help y Exit.");
+                gui.imprimirTexto("Comandos disponibles: Mkdir, Mfile, Rm, Cd, Dir, Date, Time, Wr, Rd, Ap, Ren, Copy, Find, Info, Tree, Cls, Help y Exit.");
                 break;
             case "exit":
                 gui.dispose();
