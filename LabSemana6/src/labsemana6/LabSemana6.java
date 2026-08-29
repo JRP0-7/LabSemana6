@@ -146,6 +146,9 @@ public class LabSemana6 {
                     Raiz.info(argumento, gui);
                 }
                 break;
+            case "tree":
+                Raiz.tree(archivos.getCarpetaActual(), gui);
+                break;
             case "help":
                 gui.imprimirTexto("Comandos disponibles: Mkdir, Mfile, Rm, Cd, Dir, Date, Time, Wr, Rd, Ap, Ren, Copy, Find, Info, Tree, Cls, Help y Exit.");
                 break;
