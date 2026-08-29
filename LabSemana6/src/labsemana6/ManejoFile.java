@@ -1,6 +1,9 @@
 package labsemana6;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class ManejoFile {
@@ -148,5 +151,66 @@ public class ManejoFile {
         }
     }
 
+    public String escribir(String origen, String contenido, boolean listo){
+        File destino = URLValido(origen);
+        if(destino == null){
+            return "Ruta invalida";
+        }
+        try(FileWriter f = new FileWriter(destino, listo)){
+            f.write(contenido);
+            return "";
+        }
+        catch (IOException e){
+            return "Error: " + e.getMessage();
+        }
+    } 
+
+    public String leer(String origen){
+        File destino = URLValido(origen);
+        if(destino == null || !destino.isFile()){
+            return "Error: No existe el archivo " + destino;
+        }
+
+        StringBuilder Sb= new StringBuilder();
+        try(FileReader fr = new FileReader(destino)){
+            int c;
+            while((c= fr.read()) != -1){
+                Sb.append((char) c);
+            }
+        }
+        catch (IOException e){
+            return "Error: " + e.getMessage();
+        }
+        return Sb.toString();
+    }
+
+    public String copiar(String origen, String destino){
+        File origin = URLValido(origen);
+        File end= URLValido(destino);
+
+        if(origin==null || !origin.isFile()){
+            return "No existe el origen";
+        }
+        if(end==null){
+            return "Ruta invalida";
+        }
+
+        if(end.exists()){
+            return "El destino " + end + " ya existe";
+        }
+
+        try(FileReader fr = new FileReader(origin);
+            FileWriter fw = new FileWriter(end)){
+                int c;
+                while ((c=fr.read()) != -1){
+                    fw.write(c);
+                }
+                return "Copiado exitosamente";
+            }
+        catch (IOException e) {
+            return "Error al copiar: " + e.getMessage();
+        }
+
+    }
 
 }
