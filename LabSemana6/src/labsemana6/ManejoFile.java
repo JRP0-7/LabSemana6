@@ -37,7 +37,7 @@ public class ManejoFile {
 
     public String crearArchivo(String nombre) {
         File destino = URLValido(nombre);
-        if (destino == null || !destino.exists()) {
+        if (destino == null) {
             return "Ruta Invalida";
         }
 

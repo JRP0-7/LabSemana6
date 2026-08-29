@@ -3,7 +3,6 @@ package labsemana6;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.swing.JTextArea;
 
 public class Raiz {
     public static File root(){
@@ -14,14 +13,14 @@ public class Raiz {
         return raiz;
     }
     
-    public static void find(String nombreBuscado, JTextArea areaSalida){
-    File carpetaActual = new File(System.getProperty("user.dir"));
+    public static void find(String nombreBuscado, ConsoleGUI gui){
+    File carpetaActual = root();
     
-    areaSalida.append("\n> Find "+nombreBuscado + "\n");
-        buscarEnCarpeta(carpetaActual, nombreBuscado.toLowerCase(), areaSalida);
+    gui.imprimirTexto("\n> Find "+nombreBuscado + "\n");
+        buscarEnCarpeta(carpetaActual, nombreBuscado.toLowerCase(), gui);
     }
     
-    private static void buscarEnCarpeta(File carpeta, String nombreBuscado, JTextArea areaSalida) {
+    private static void buscarEnCarpeta(File carpeta, String nombreBuscado, ConsoleGUI gui) {
 
     File[] elementos = carpeta.listFiles();
 
@@ -32,23 +31,22 @@ public class Raiz {
     for (File elemento : elementos) {
         if (elemento.getName().toLowerCase().contains(nombreBuscado)) {
             String tipo = elemento.isDirectory() ? "[Carpeta] " : "[Archivo] ";
-            areaSalida.append(tipo + elemento.getAbsolutePath() + "\n");
+            gui.imprimirTexto(tipo + elemento.getAbsolutePath() + "\n");
         }
 
         if (elemento.isDirectory()) {
-            buscarEnCarpeta(elemento, nombreBuscado, areaSalida);
+            buscarEnCarpeta(elemento, nombreBuscado, gui);
         }
     }
 }
     
-    public static void info(String nombre, JTextArea areaSalida){
-    File carpetaActual = new File(System.getProperty("usar.dir"));
+    public static void info(String nombre, ConsoleGUI gui){
+    File carpetaActual = root();
     File elemento = new File(carpetaActual, nombre);
-    areaSalida.append("\n> Info "+nombre+"\n");
+    gui.imprimirTexto("\n> Info "+nombre);
     
         if (!elemento.exists()) {
-            areaSalida.append("No se encontro el archivo o carpeta.\n");
-            areaSalida.setCaretPosition(areaSalida.getDocument().getLength());
+            gui.imprimirTexto("No se encontro el archivo o carpeta.");
             return;
         }
         
@@ -57,11 +55,10 @@ public class Raiz {
         Date fechaModificacion = new Date(elemento.lastModified());
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         
-        areaSalida.append("Tipo: "+tipo+"\n");
-        areaSalida.append("Ruta: "+elemento.getAbsolutePath()+"\n");
-        areaSalida.append("Tamano: "+tamanio+"bytes\n");
-        areaSalida.append("Ultima Modificacion: "+formato.format(fechaModificacion)+"\n");
-        areaSalida.setCaretPosition(areaSalida.getDocument().getLength());
+        gui.imprimirTexto("Tipo: "+tipo);
+        gui.imprimirTexto("Ruta: "+elemento.getAbsolutePath());
+        gui.imprimirTexto("Tamano: "+tamanio+" bytes");
+        gui.imprimirTexto("Ultima Modificacion: "+formato.format(fechaModificacion));
     
     
     }
