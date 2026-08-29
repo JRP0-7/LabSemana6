@@ -37,7 +37,7 @@ public class ManejoFile {
 
     public String crearArchivo(String nombre) {
         File destino = URLValido(nombre);
-        if (destino == null || !destino.exists()) {
+        if (destino == null) {
             return "Ruta Invalida";
         }
 
@@ -105,5 +105,48 @@ public class ManejoFile {
         }
         return f.delete();
     }
+
+    public String Mover(String url){
+        File destino = URLValido(url);
+        if(destino == null || !destino.exists()){
+            return "No existe la carpeta " + url;
+        }
+
+        if(!destino.isDirectory()){
+            return "No es una carpeta";
+        }
+
+        carpetaActual = destino;
+        return "";
+    }
+
+    public String Subir(){
+        try{
+            if(carpetaActual.getCanonicalPath().equals(carpetaRaiz.getCanonicalPath())){
+                return "Ya se esta en la carpeta raiz";
+            }
+        }
+        catch(IOException e){
+            return "Error: " + e.getMessage();
+        }
+
+        carpetaActual=carpetaActual.getParentFile();
+        return "";
+    }
+
+    public String ubicacionActual(){
+        try{
+            String raiz = carpetaRaiz.getCanonicalPath();
+            String actual = carpetaActual.getCanonicalPath();
+            if(actual.equals(raiz)){
+                return "C:\\Sistema>";
+            }
+            return "C:\\Sistema" + actual.substring(raiz.length()) + ">";
+        }
+        catch(IOException e){
+            return "C:\\Sistema";
+        }
+    }
+
 
 }
