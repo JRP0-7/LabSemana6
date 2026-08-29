@@ -95,7 +95,7 @@ public class ConsoleGUI extends JFrame {
               
                 imprimirTexto(getPromptText() + input);
 
-                if (input.trim().equalsIgnoreCase("cls")) {
+                if (input.trim().equals("Cls")) {
                     limpiarPantalla();
                 } else if (listener != null) {
             

@@ -5,7 +5,6 @@
 package labsemana6;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.swing.SwingUtilities;
@@ -61,35 +60,35 @@ public class LabSemana6 {
 
         // El segundo valor conserva el texto completo del nombre indicado.
         String[] partes = comandoCompleto.split("\\s+", 2);
-        String comando = partes[0].toLowerCase();
+        String comando = partes[0];
         String argumento = partes.length > 1 ? partes[1].trim() : "";
 
         switch (comando) {
-            case "mkdir":
+            case "Mkdir":
                 gui.imprimirTexto(archivos.crearCarpeta(argumento));
                 break;
-            case "mfile":
+            case "Mfile":
                 gui.imprimirTexto(archivos.crearArchivo(argumento));
                 break;
-            case "rm":
+            case "Rm":
                 gui.imprimirTexto(archivos.borrar(argumento));
                 break;
-            case "cd":
+            case "Cd":
                 gui.imprimirTexto(archivos.Mover(argumento));
                 break;
             case "..":
                 gui.imprimirTexto(archivos.Subir());
                 break;
-            case "dir":
+            case "Dir":
                 gui.imprimirTexto(archivos.listar());
                 break;
-            case "date":
+            case "Date":
                 gui.imprimirTexto(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
                 break;
-            case "time":
+            case "Time":
                 gui.imprimirTexto(new SimpleDateFormat("HH:mm:ss").format(new Date()));
                 break;
-            case "wr":
+            case "Wr":
                 if (argumento.isEmpty()) {
                     gui.imprimirTexto("Uso: Wr <archivo>");
                 } else {
@@ -100,14 +99,14 @@ public class LabSemana6 {
                     gui.imprimirTexto("Escribe el contenido. Termina con EXIT.");
                 }
                 break;
-            case "rd":
+            case "Rd":
                 if (argumento.isEmpty()) {
                     gui.imprimirTexto("Uso: Rd <archivo>");
                 } else {
                     gui.imprimirTexto(archivos.leer(argumento));
                 }
                 break;
-            case "ap":
+            case "Ap":
                 if (argumento.isEmpty()) {
                     gui.imprimirTexto("Uso: Ap <archivo>");
                 } else {
@@ -118,7 +117,7 @@ public class LabSemana6 {
                     gui.imprimirTexto("Escribe el contenido. Termina con EXIT.");
                 }
                 break;
-            case "ren":
+            case "Ren":
                 if (argumento.isEmpty()) {
                     gui.imprimirTexto("Uso: Ren <actual> <nuevo>");
                 } else {
@@ -130,7 +129,7 @@ public class LabSemana6 {
                     }
                 }
                 break;
-            case "copy":
+            case "Copy":
                 if (argumento.isEmpty()) {
                     gui.imprimirTexto("Uso: Copy <origen> <destino>");
                 } else {
@@ -142,31 +141,31 @@ public class LabSemana6 {
                     }
                 }
                 break;
-            case "find":
+            case "Find":
                 if (argumento.isEmpty()) {
                     gui.imprimirTexto("Uso: Find <nombre>");
                 } else {
-                    Raiz.find(argumento, gui);
+                    Raiz.find(archivos.getCarpetaActual(), argumento, gui);
                 }
                 break;
-            case "info":
+            case "Info":
                 if (argumento.isEmpty()) {
                     gui.imprimirTexto("Uso: Info <nombre>");
                 } else {
-                    Raiz.info(argumento, gui);
+                    Raiz.info(archivos.getCarpetaActual(), argumento, gui);
                 }
                 break;
-            case "tree":
+            case "Tree":
                 Raiz.tree(archivos.getCarpetaActual(), gui);
                 break;
-            case "help":
+            case "Help":
                 gui.imprimirTexto("Comandos disponibles: Mkdir, Mfile, Rm, Cd, Dir, Date, Time, Wr, Rd, Ap, Ren, Copy, Find, Info, Tree, Cls, Help y Exit.");
                 break;
-            case "exit":
+            case "Exit":
                 gui.dispose();
                 break;
             default:
-                gui.imprimirTexto("Comando no reconocido. Escribe Help para ver los comandos disponibles.");
+                gui.imprimirTexto("'"+comando+"' no se reconoce como un comando interno o externo. Escribe Help para ver los comandos disponibles.");
                 break;
         }
         gui.setRutaActual(archivos.ubicacionActual());

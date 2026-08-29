@@ -1,7 +1,6 @@
 package labsemana6;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -90,6 +89,15 @@ public class ManejoFile {
             return "Error " + e.getMessage();
         }
 
+        try{
+            if(destino.getCanonicalPath().equals(carpetaActual.getCanonicalPath())){
+                return "No se puede eliminar la carpeta actual";
+            }
+        }
+        catch(IOException e){
+            return "Error con la ruta brindada";
+        }
+
         if (borrarTodo(destino)) {
             return nombre + " eliminado correctamente";
         } else {
@@ -141,11 +149,11 @@ public class ManejoFile {
             String raiz = carpetaRaiz.getCanonicalPath();
             String actual = carpetaActual.getCanonicalPath();
             if (actual.equals(raiz)) {
-                return "C:\\Sistema";
+                return "C:\\ConsolaSimulada";
             }
-            return "C:\\Sistema" + actual.substring(raiz.length()) + "";
+            return "C:\\ConsolaSimulada" + actual.substring(raiz.length()) + "";
         } catch (IOException e) {
-            return "C:\\Sistema";
+            return "C:\\ConsolaSimulada";
         }
     }
 

@@ -13,8 +13,8 @@ public class Raiz {
         return raiz;
     }
     
-    public static void find(String nombreBuscado, ConsoleGUI gui){
-    File carpetaActual = root();
+    public static void find(File ubicacion, String nombreBuscado, ConsoleGUI gui){
+    File carpetaActual = ubicacion;
     
     gui.imprimirTexto("\n> Find "+nombreBuscado + "\n");
         boolean encontrado = buscarEnCarpeta(carpetaActual,
@@ -83,8 +83,8 @@ public class Raiz {
         }
     }
     
-    public static void info(String nombre, ConsoleGUI gui){
-    File carpetaActual = root();
+    public static void info(File ubicacion, String nombre, ConsoleGUI gui){
+    File carpetaActual = ubicacion;
     File elemento = new File(carpetaActual, nombre);
     gui.imprimirTexto("\n> Info "+nombre);
     
